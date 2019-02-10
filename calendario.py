@@ -5,6 +5,7 @@ print(calendar.Calendar(2015))
 from tkinter import *
 from tkinter import ttk
 from datetime import datetime
+from datetime import timedelta
 """
 from datetime import datetime
 currentDay = datetime.now().day
@@ -24,11 +25,20 @@ class calendarButton(ttk.Frame):
 
 class mesDisplay(ttk.Frame):
 
+    anioActual = datetime.now().year
     dictMes = {"1":"Enero","2":"Febrero","3":"Marzo","4":"Abril","5":"Mayo","6":"Junio","7":"Julio","8":"Agosto","9":"Septiembre","10":"Octubre","11":"Noviembre","12":"Diciembre"}
+    unMes = timedelta(days=31)
     mesActual = dictMes[str(datetime.now().month)]
-    añoActual = datetime.now().year
 
-    __value = mesActual, añoActual
+    def meses(self):
+
+        sumaMes = mesActual + unMes
+        otroMes = sumaMes.month
+
+        print(mesDict[str(otroMes)])
+
+
+    __value = mesActual, anioActual
 
     def __init__(self, parent, **args):
 
@@ -52,7 +62,7 @@ class mainApp(Tk):
 
         __btnLastYear = calendarButton(self, text="<<").place(x=24, y=5)
         __btnLastMonth = calendarButton(self, text="<").place(x=83, y=5)
-        __btnNextMonth = calendarButton(self, text=">").place(x=398, y=5)
+        __btnNextMonth = calendarButton(self, text=">",command=self.meses).place(x=398, y=5)
         __btnNextYear = calendarButton(self, text=">>").place(x=457, y=5)
 
         self.__display = mesDisplay(self)
